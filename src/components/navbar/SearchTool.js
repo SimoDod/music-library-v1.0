@@ -20,9 +20,8 @@ const SearchTool = (props) => {
         </Link>
         <input
           className={classes.searchTool__input}
-          placeholder="Search"
+          placeholder="Search by Album Name"
           onChange={onChangeHandler}
-          
         ></input>
       </div>
     </form>
