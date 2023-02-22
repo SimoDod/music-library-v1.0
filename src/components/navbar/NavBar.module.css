@@ -1,0 +1,125 @@
+.navbar__container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.navbar__ul {
+  margin: 0;
+  padding-left: 1rem;
+  display: inline-flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  list-style: none;
+}
+
+.navbar__ul_li {
+  padding: 0.2rem 0;
+}
+
+.navbar__ul_li:hover {
+  background-color: black;
+  border-radius: 1.5rem;
+}
+
+.navbar__ul_li a {
+  padding: 0.3rem 1rem;
+  text-decoration: none;
+  color: #e4f5ff;
+}
+
+.icon__home {
+  padding: 0 1.5rem;
+  color: #e4f5ff;
+  opacity: 0.85;
+}
+
+.icon__home:hover {
+  opacity: 1;
+}
+
+.navbar__buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding-right: 1.5rem;
+  padding-top: 0.75rem;
+  gap: 1rem;
+}
+.navbar__buttons_signup {
+  all: unset;
+  background-color: #009dff;
+  opacity: 0.9;
+  border-radius: 6px;
+  color: #e4f5ff;
+  padding: 0.5rem 1.75rem;
+}
+
+.navbar__buttons_login {
+  all: unset;
+  background-color: #242527;
+  opacity: 0.9;
+  border-radius: 6px;
+  color: #e4f5ff;
+  padding: 0.5rem 1.75rem;
+}
+
+.navbar__buttons_home {
+  all: unset;
+  background-color: black;
+  opacity: 0.9;
+  border-radius: 6px;
+  color: #e4f5ff;
+  padding: 0.5rem 1.75rem;
+}
+
+.navbar__buttons_home:hover {
+  opacity: 1;
+  box-shadow: 0 5px 15px #63809c4f;
+  cursor: pointer;
+}
+
+.navbar__buttons_signup:hover {
+  opacity: 1;
+  box-shadow: 0 5px 15px #46b6fb5f;
+}
+
+.navbar__buttons_login:hover {
+  opacity: 1;
+  box-shadow: 0 5px 15px #63809c4f;
+}
+
+.navbar__buttons a {
+  text-decoration: none;
+}
+
+@media screen and (max-width: 678px) {
+  .navbar__container {
+    display: block;
+    width: 100%;
+  }
+  .navbar__nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .navbar__buttons {
+    padding-right: 0;
+    padding-top: 0.5rem;
+    gap: 1rem;
+  }
+
+  .navbar__ul {
+    padding: 0;
+  }
+  .navbar__ul_li {
+    margin: 0.4rem;
+  }
+}
+
+@media screen and (max-width: 987px) {
+  .navbar__ul {
+    display: flex;
+  }
+}

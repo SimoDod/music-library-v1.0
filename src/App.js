@@ -1,23 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route, BrowserRouter } from "react-router-dom";
+import React, { useState } from 'react';
+import classes from './App.module.css';
+import NavBar from './components/navbar/NavBar';
+import About from "./views/About";
+import CreateAlbum from "./views/CreateAlbum";
+import Home from './views/Home';
+import Login from "./views/Login";
+import Music from "./views/Music";
+import Register from "./views/Register";
+import Search from "./views/Search";
 
 function App() {
+  const [enteredSearch, setEnteredSearch] = useState('')
+
+  const searchHandler = (searchValue) => {
+    setEnteredSearch(searchValue)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={classes.app}>
+      <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<NavBar searchHandler={searchHandler} />}>
+          <Route index element={<Home />} />
+          <Route path="/music" element={<Music />} />
+          <Route path="/create-album" element={<CreateAlbum />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/search" element={<Search enteredSearch={enteredSearch} />} />
+        </Route>
+      </Routes>
+      </BrowserRouter>
     </div>
   );
 }

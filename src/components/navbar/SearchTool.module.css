@@ -1,0 +1,41 @@
+.searchTool__container {
+  display: inline-block;
+  padding: .75rem .25rem;
+}
+
+.searchTool__input {
+  all: unset;
+  background-color: black;
+  height: 30px;
+  padding-right: 7rem;
+  padding-left: 2rem;
+  border-radius: 6px;
+  color: #e4f5ff;
+  text-align: center;
+}
+
+.input__wrapper {
+  display: inline-block;
+  position: relative;
+}
+
+.icon__input {
+    margin-left: .5rem;
+  position: absolute;
+  color: #e4f5ff;
+  top: 25%;
+}
+
+.searchTool_button {
+    all: unset;
+    background-color: #242527;
+    color: #e4f5ff;
+    position: absolute;
+    text-align: center;
+    right: 0;
+    width: 30%;
+    height: 80%;
+    top: 10%;
+    right: 1%;
+    border-radius: 6px;
+}

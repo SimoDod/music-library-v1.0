@@ -1,0 +1,14 @@
+.card {
+    background-color: rgb(25, 25, 25);
+    border-radius: 6px;
+    padding: 1rem 2rem;
+}
+
+.card__icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: #242527;
+    padding: .75rem;
+    border-radius: 50%;
+    margin-bottom: .75rem;
+}
