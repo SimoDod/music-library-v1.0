@@ -6,11 +6,11 @@ import MusicCard from "../components/UI/MusicCard";
 
 const Music = () => {
   const [musicList, setMusicList] = useState([]);
-  const dbUsersRef = collection(firestore, 'albums');
+  const dbAlbumsRef = collection(firestore, 'albums');
   
   useEffect(() => {
     const getAlbums = async () => {
-      const data = await getDocs(dbUsersRef);
+      const data = await getDocs(dbAlbumsRef);
       setMusicList(data.docs.map((doc) => ({...doc.data(), id:doc.id})))
     };
 

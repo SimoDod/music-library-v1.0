@@ -1,13 +1,23 @@
 import HeadingCard from "../components/UI/HeadingCard";
-import { faHeadphones, faBarsStaggered, faCircleCheck, faClockFour, faStar, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import {
+  faHeadphones,
+  faBarsStaggered,
+  faCircleCheck,
+  faClockFour,
+  faStar,
+  faInfoCircle,
+} from "@fortawesome/free-solid-svg-icons";
 import classes from "./Home.module.css";
 import { Link } from "react-router-dom";
+
 const Home = () => {
   return (
     <main className={classes.container}>
       <section className={classes.heading__section}>
         <h1 className={classes.heading__h1}>
-          Share Your Love for <span className={classes.heading__music_word}>Music</span> With Friends.
+          Share Your Love for{" "}
+          <span className={classes.heading__music_word}>Music</span> With
+          Friends.
         </h1>
         <p className={classes.heading__p}>
           Musicboard is a social platform that allows you to keep track of all
@@ -16,9 +26,8 @@ const Home = () => {
           growing community.
         </p>
         <Link to="/register">
-        <button className={classes.heading__button}>Create Account</button>
+          <button className={classes.heading__button}>Create Account</button>
         </Link>
-        
       </section>
       <section className={classes.options__section}>
         <p className={classes.options__p}>Music Library Let's You...</p>

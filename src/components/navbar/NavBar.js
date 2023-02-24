@@ -11,7 +11,8 @@ const NavBar = (props) => {
   const [showModal, setshowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [modalTitle, setModalTitle] = useState("");
-  
+
+  /* handles the  resize of the screen dinamically. Removes and adds different type of the home buttons */
   const handleResize = () => {
     if (window.innerWidth <= 678) {
       setIsMobile(true);
@@ -19,26 +20,11 @@ const NavBar = (props) => {
       setIsMobile(false);
     }
   };
-  
+
   useEffect(() => {
     window.addEventListener("resize", handleResize);
     handleResize();
   });
-
-  const closeErrorModal = () => setshowModal(false);
-  const modalHandler = (title, message) => {
-    setModalMessage(message);
-    setModalTitle(title);
-    setshowModal(true);
-  };
-
-  const clickHandler = (e) => {
-    if(e.target.value.length < 3) {
-      modalHandler("Ooops!", "Search input should be atleast 3 characters long.");
-      return;
-    }
-    props.searchHandler(e.target.value)
-  }
 
   const standard = (
     <Link to="/">
@@ -50,10 +36,30 @@ const NavBar = (props) => {
       <button className={classes.navbar__buttons_home}>Home</button>
     </Link>
   );
+  /*  */
+
+  /* handles error modal  */
+  const closeErrorModal = () => setshowModal(false);
+  const modalHandler = (title, message) => {
+    setModalMessage(message);
+    setModalTitle(title);
+    setshowModal(true);
+  };
+  /*  */
+
+  const clickHandler = (e) => {
+    const searchInput = e.target.value.length;
+
+    if (searchInput < 1) {
+      modalHandler("Ooops!", "Search field can't be empty.");
+      return;
+    }
+    props.searchHandler(e.target.value);
+  };
 
   return (
     <>
-    {showModal && (
+      {showModal && (
         <ErrorModal
           title={modalTitle}
           message={modalMessage}
