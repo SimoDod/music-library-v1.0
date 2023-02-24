@@ -12,6 +12,9 @@ const NavBar = (props) => {
   const [modalMessage, setModalMessage] = useState("");
   const [modalTitle, setModalTitle] = useState("");
 
+  const userData = JSON.parse(localStorage.getItem("userData"));
+  const host = "http://192.168.1.5:3000/";
+  
   /* handles the  resize of the screen dinamically. Removes and adds different type of the home buttons */
   const handleResize = () => {
     if (window.innerWidth <= 678) {
@@ -57,6 +60,11 @@ const NavBar = (props) => {
     props.searchHandler(e.target.value);
   };
 
+  const logoutHandler = () => {
+    localStorage.clear();
+    window.location.replace(host)
+  }
+
   return (
     <>
       {showModal && (
@@ -74,9 +82,11 @@ const NavBar = (props) => {
             <li className={classes.navbar__ul_li}>
               <Link to="/music">Music</Link>
             </li>
-            <li className={classes.navbar__ul_li}>
-              <Link to="/create-album">Create Album</Link>
-            </li>
+            {userData && (
+              <li className={classes.navbar__ul_li}>
+                <Link to="/create-album">Create Album</Link>
+              </li>
+            )}
             <li className={classes.navbar__ul_li}>
               <Link to="/about">About</Link>
             </li>
@@ -84,12 +94,34 @@ const NavBar = (props) => {
         </div>
         <div className={classes.navbar__buttons}>
           {isMobile && mobile}
-          <Link to="/login">
-            <button className={classes.navbar__buttons_login}>Log In</button>
-          </Link>
-          <Link to="/register">
-            <button className={classes.navbar__buttons_signup}>Sign Up</button>
-          </Link>
+          {!userData && (
+            <>
+              <Link to="/login">
+                <button className={classes.navbar__buttons_login}>
+                  Log In
+                </button>
+              </Link>
+              <Link to="/register">
+                <button className={classes.navbar__buttons_signup}>
+                  Sign Up
+                </button>
+              </Link>
+            </>
+          )}
+          {userData && (
+            <>
+              <Link to="/my-music">
+                <button className={classes.navbar__buttons_signup}>
+                  My Music
+                </button>
+              </Link>
+              <Link to="/">
+                <button onClick={logoutHandler} className={classes.navbar__buttons_login}>
+                  Logout
+                </button>
+              </Link>
+            </>
+          )}
         </div>
       </nav>
       <Outlet />

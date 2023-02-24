@@ -76,6 +76,7 @@ const CreateAlbum = () => {
           clickHandler={closeErrorModal}
         />
       )}
+
       <h2 className={classes.header}>Create Album</h2>
       <form onSubmit={handleAlbumSubmit} className={classes.form}>
         <div className={classes["form-group"]}>

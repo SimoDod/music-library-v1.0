@@ -9,6 +9,7 @@ import Login from "./views/Login";
 import Music from "./views/Music";
 import Register from "./views/Register";
 import Search from "./views/Search";
+import MyMusic from "./views/MyMusic";
 
 function App() {
   const [enteredSearch, setEnteredSearch] = useState('')
@@ -24,6 +25,7 @@ function App() {
         <Route path="/" element={<NavBar searchHandler={searchHandler} />}>
           <Route index element={<Home />} />
           <Route path="/music" element={<Music />} />
+          <Route path="/my-music" element={<MyMusic />} />
           <Route path="/create-album" element={<CreateAlbum />} />
           <Route path="/about" element={<About />} />
           <Route path="/register" element={<Register />} />

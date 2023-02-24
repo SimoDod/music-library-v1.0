@@ -23,6 +23,8 @@ const Register = () => {
 
   const [userList, setUserList] = useState([]);
   const dbUsersRef = collection(firestore, "users");
+  const host = "http://192.168.1.5:3000/";
+  
 
   /* it updates the list of users in case if you try to register with the same email twice */
   const [isUpdated, setIsUpdated] = useState(true);
@@ -105,6 +107,7 @@ const Register = () => {
       setRePassword("");
       buttonStateHandler();
       modalHandler("Done!", "You have registered successfully.");
+      localStorage.setItem("userData", JSON.stringify({ name, email, password }));
     } catch (error) {
       modalHandler(
         "Error",
@@ -114,7 +117,12 @@ const Register = () => {
     }
   };
 
-  const closeErrorModal = () => setshowModal(false);
+  const closeErrorModal = () => {
+    setshowModal(false);
+    if(localStorage.getItem("userData")) {
+        window.location.replace(host);
+    }
+};
   const modalHandler = (title, message) => {
     setModalMessage(message);
     setModalTitle(title);
