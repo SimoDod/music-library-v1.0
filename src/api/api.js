@@ -1,12 +1,11 @@
-const host = "http://192.168.1.5:3030/";
+const host = "https://music-library-79f1f-default-rtdb.europe-west1.firebasedatabase.app.json"; 
 
 async function serviceHandler(method, url, data) {
   let options = {
     method,
-    mode: 'cors',
     headers: {
-      'Content-Type': 'application/json',
-    }
+      "Content-Type": "application/json",
+    },
   };
 
   if (data !== undefined) {
@@ -21,7 +20,7 @@ async function serviceHandler(method, url, data) {
 
   try {
     const response = await fetch(host + url, options);
-    
+    console.log(response);
     if (response.ok !== true) {
       const error = await response.json();
       throw new Error(error.message);

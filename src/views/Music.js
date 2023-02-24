@@ -1,26 +1,27 @@
 import classes from "./Music.module.css";
-import { get } from "../api/api";
 import React, { useState, useEffect } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import { firestore } from "../api/firebase_setup/firebase";
 import MusicCard from "../components/UI/MusicCard";
 
 const Music = () => {
   const [musicList, setMusicList] = useState([]);
-
+  const dbUsersRef = collection(firestore, 'albums');
+  
   useEffect(() => {
-    const fetchData = async () => {
-      const res = await get(
-        "data/albums?sortBy=_createdOn%20desc&distinct=name"
-      );
-      setMusicList(res);
+    const getAlbums = async () => {
+      const data = await getDocs(dbUsersRef);
+      setMusicList(data.docs.map((doc) => ({...doc.data(), id:doc.id})))
     };
-    fetchData();
+
+    getAlbums()
   }, []);
 
   return (
     <ul className={classes.music__ul}>
       {musicList.map((current) => {
         return (
-          <li key={current._id}>
+          <li key={current.id}>
             <MusicCard
               artist={current.artist}
               description={current.description}
