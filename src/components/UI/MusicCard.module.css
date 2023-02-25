@@ -27,14 +27,7 @@
   animation-fill-mode: forwards;
 }
 
-@keyframes fadeInAnimation {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
+
 
 .card__p_type_span {
   color: #0293eb;
@@ -73,6 +66,7 @@
   justify-content: space-between;
   align-items: center;
   width: 50%;
+  
 }
 
 .delete__btn,
@@ -81,6 +75,9 @@
   color: #e4f5ff;
   cursor: pointer;
   opacity: 0.9;
+  animation: fadeInAnimation ease 3s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
 }
 
 .delete__btn {
@@ -107,14 +104,11 @@
   cursor: pointer;
 }
 
-/* @media screen and (max-width: 900px) {
-  .card__p {
-    padding-left: 2.5rem;
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
-
-@media screen and (max-width: 660px) {
-    .card__p {
-      padding-left: 5rem;
-    }
-  } */
