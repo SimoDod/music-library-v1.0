@@ -72,6 +72,7 @@
 .delete__btn,
 .update__btn {
   border-radius: 6px;
+  border: none;
   color: #e4f5ff;
   cursor: pointer;
   opacity: 0.9;
