@@ -7,7 +7,7 @@
   all: unset;
   background-color: black;
   height: 30px;
-  padding-right: 7rem;
+  padding-right: 5rem;
   padding-left: 2rem;
   border-radius: 6px;
   color: #e4f5ff;
@@ -15,8 +15,10 @@
 }
 
 .searchTool__input {
-    font-size: smaller;
-  }
+    font-size: small;
+    width: 11rem;
+    text-align: left;
+}
 
 .input__wrapper {
   display: inline-block;

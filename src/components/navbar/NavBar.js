@@ -14,7 +14,7 @@ const NavBar = (props) => {
 
   const userData = JSON.parse(localStorage.getItem("userData"));
   const host = "http://192.168.1.5:3000/";
-  
+
   /* handles the  resize of the screen dinamically. Removes and adds different type of the home buttons */
   const handleResize = () => {
     if (window.innerWidth <= 678) {
@@ -28,17 +28,6 @@ const NavBar = (props) => {
     window.addEventListener("resize", handleResize);
     handleResize();
   });
-
-  const standard = (
-    <Link to="/">
-      <Icon icon={faHouse} className={classes.icon__home} />
-    </Link>
-  );
-  const mobile = (
-    <Link to="/">
-      <button className={classes.navbar__buttons_home}>Home</button>
-    </Link>
-  );
   /*  */
 
   /* handles error modal  */
@@ -62,8 +51,8 @@ const NavBar = (props) => {
 
   const logoutHandler = () => {
     localStorage.clear();
-    window.location.replace(host)
-  }
+    window.location.replace(host);
+  };
 
   return (
     <>
@@ -76,7 +65,11 @@ const NavBar = (props) => {
       )}
       <nav className={classes.navbar__container}>
         <div className={classes.navbar__nav}>
-          {!isMobile && standard}
+          {!isMobile && (
+            <Link to="/">
+              <Icon icon={faHouse} className={classes.icon__home} />
+            </Link>
+          )}
           <SearchTool clickHandler={clickHandler} />
           <ul className={classes.navbar__ul}>
             <li className={classes.navbar__ul_li}>
@@ -84,7 +77,7 @@ const NavBar = (props) => {
             </li>
             {userData && (
               <li className={classes.navbar__ul_li}>
-                <Link to="/create-album">Create Album</Link>
+                <Link to="/create-song">Create Song</Link>
               </li>
             )}
             <li className={classes.navbar__ul_li}>
@@ -93,30 +86,41 @@ const NavBar = (props) => {
           </ul>
         </div>
         <div className={classes.navbar__buttons}>
-          {isMobile && mobile}
-          {!userData && (
+          {!userData ? (
             <>
               <Link to="/login">
                 <button className={classes.navbar__buttons_login}>
                   Log In
                 </button>
               </Link>
+              {isMobile && (
+                <Link style={{marginTop: ".5rem"}} to="/">
+                  <Icon  icon={faHouse} className={classes.icon__home} />
+                </Link>
+              )}
               <Link to="/register">
                 <button className={classes.navbar__buttons_signup}>
                   Sign Up
                 </button>
               </Link>
             </>
-          )}
-          {userData && (
+          ) : (
             <>
               <Link to="/my-music">
-                <button className={classes.navbar__buttons_signup}>
+                <button style={{backgroundColor: "black"}} className={classes.navbar__buttons_signup}>
                   My Music
                 </button>
               </Link>
+              {isMobile && (
+                <Link style={{marginTop: ".5rem"}} to="/">
+                  <Icon icon={faHouse} className={classes.icon__home} />
+                </Link>
+              )}
               <Link to="/">
-                <button onClick={logoutHandler} className={classes.navbar__buttons_login}>
+                <button
+                  onClick={logoutHandler}
+                  className={classes.navbar__buttons_login}
+                >
                   Logout
                 </button>
               </Link>

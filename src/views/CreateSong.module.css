@@ -65,6 +65,8 @@
     max-width: 800px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, 2fr);
+    align-items: center;
     grid-gap: 30px;
     padding: 50px;
   }
@@ -77,6 +79,15 @@
     font-size: 18px;
   }
 
+  .form-group label {
+    font-size: 18px;
+  }
+
+  .form-group textarea {
+    resize: none;
+    height: 80px;
+  }
+
   .form-group input,
   .form-group textarea {
     padding: 12px;
@@ -84,7 +95,8 @@
   }
 
   .form button {
-    margin: 2rem 3rem;
+    margin: 2rem 11rem;
     font-size: 18px;
+    grid-column: 1/ -1;
   }
 }

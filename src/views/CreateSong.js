@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import classes from "./CreateAlbum.module.css";
+import classes from "./CreateSong.module.css";
 import handleSubmit from "../api/handles/handleSubmit";
 import ErrorModal from "../components/UI/ErrorModal";
 
-const CreateAlbum = () => {
+const CreateSong = () => {
   const [showModal, setshowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [modalTitle, setModalTitle] = useState("");
@@ -13,6 +13,8 @@ const CreateAlbum = () => {
   const [buttonColor, setButtonColor] = useState({
     backgroundColor: "#007bff",
   });
+
+  const host = "http://192.168.1.5:3000/"
 
   const buttonStateHandler = () => {
     setIsDisabled(true);
@@ -26,11 +28,13 @@ const CreateAlbum = () => {
   /*  */
 
   /*  handles the logic of the errors of the form, modal and sends request to the firebase */
-  const handleAlbumSubmit = (e) => {
+  const handleSongSubmit = (e) => {
     e.preventDefault();
+    const userData = JSON.parse(localStorage.getItem("userData"));
+
     const data = Object.fromEntries(new FormData(e.target));
     try {
-      const { artist, description, genre, imgUrl, name, price, releaseDate } =
+      const { artist, description, genre, imgUrl, name, releaseDate } =
         data;
 
       if (
@@ -39,27 +43,30 @@ const CreateAlbum = () => {
         !genre ||
         !imgUrl ||
         !name ||
-        !price ||
         !releaseDate
       ) {
         modalHandler("Ooops!", "Looks like you may have missed a field.");
         return;
       }
 
-      handleSubmit("albums", data);
+      handleSubmit("songs", {...data, ownerId: userData.ownerId, ownerName: userData.name});
       e.target.reset();
       buttonStateHandler();
-      modalHandler("Done!", "Your Album is created.");
+      modalHandler("Done!", "Your Song is created.");
     } catch (error) {
       modalHandler(
         "Error",
-        "There was an error when creating the Album! Please try again."
+        "There was an error when creating the Song! Please try again."
       );
       console.log(error);
     }
   };
 
-  const closeErrorModal = () => setshowModal(false);
+  const closeErrorModal = () => {
+    window.location.replace(host + "my-music")
+    setshowModal(false)
+  };
+
   const modalHandler = (title, message) => {
     setModalMessage(message);
     setModalTitle(title);
@@ -77,10 +84,10 @@ const CreateAlbum = () => {
         />
       )}
 
-      <h2 className={classes.header}>Create Album</h2>
-      <form onSubmit={handleAlbumSubmit} className={classes.form}>
+      <h2 className={classes.header}>Create Song</h2>
+      <form onSubmit={handleSongSubmit} className={classes.form}>
         <div className={classes["form-group"]}>
-          <label htmlFor="name">Album Name</label>
+          <label htmlFor="name">Song Name</label>
           <input type="text" name="name" />
         </div>
         <div className={classes["form-group"]}>
@@ -96,23 +103,19 @@ const CreateAlbum = () => {
           <input type="date" name="releaseDate" />
         </div>
         <div className={classes["form-group"]}>
-          <label htmlFor="imgUrl">Image Url</label>
-          <input type="text" name="imgUrl" />
-        </div>
-        <div className={classes["form-group"]}>
-          <label htmlFor="price">Price</label>
-          <input type="number" name="price" />
-        </div>
-        <div className={classes["form-group"]}>
           <label htmlFor="description">Description</label>
           <textarea name="description" />
         </div>
+        <div className={classes["form-group"]}>
+          <label htmlFor="imgUrl">Image Url</label>
+          <input type="text" name="imgUrl" />
+        </div>
         <button style={buttonColor} disabled={isDisabled} type="submit">
-          Add Album
+          Add Song
         </button>
       </form>
     </>
   );
 };
 
-export default CreateAlbum;
+export default CreateSong;

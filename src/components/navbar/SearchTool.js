@@ -8,7 +8,7 @@ const SearchTool = (props) => {
   const [enteredSearch, setEnteredSearch] = useState("");
 
   const onChangeHandler = (e) => {
-    setEnteredSearch(e.target.value);
+    setEnteredSearch(e.target.value.trim().toLowerCase());
   };
 
   return (
@@ -16,11 +16,17 @@ const SearchTool = (props) => {
       <div className={classes.input__wrapper}>
         <Icon className={classes.icon__input} icon={faMagnifyingGlass} />
         <Link to="/search">
-          <button value={enteredSearch} onClick={props.clickHandler} className={classes.searchTool_button}>Search</button>
+          <button
+            value={enteredSearch}
+            onClick={props.clickHandler}
+            className={classes.searchTool_button}
+          >
+            Search
+          </button>
         </Link>
         <input
           className={classes.searchTool__input}
-          placeholder="Search by Album Name"
+          placeholder="Search by song name"
           onChange={onChangeHandler}
         ></input>
       </div>

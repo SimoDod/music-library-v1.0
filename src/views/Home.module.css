@@ -1,93 +1,108 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    padding-top: 4rem;
-    gap: 3rem;
+  display: flex;
+  flex-direction: column;
+  padding-top: 4rem;
+  gap: 3rem;
 }
 
 .heading__section {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 1.5rem;
-    margin: 0 auto;
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  margin: 0 auto;
+  text-align: center;
 }
 
-.heading__section a{
-    text-decoration: none;
+.heading__section a {
+  text-decoration: none;
 }
 
 .heading__h1 {
-    color: #e4f5ff;
-    font-size: 3rem;
-    width: 45%;
+  color: #e4f5ff;
+  font-size: 3rem;
+  width: 45%;
 }
 
 .heading__p {
-    color: #e4f5ff;
-    width: 30%;
+  color: #e4f5ff;
+  width: 30%;
 }
 
 .heading__button {
-    all: unset;
-    background-color: #009fff;
-    opacity: 0.9;
-    border-radius: 6px;
-    color: #e4f5ff;
-    padding: 0.5rem 1.75rem;
+  all: unset;
+  background-color: #009fff;
+  opacity: 0.9;
+  border-radius: 6px;
+  color: #e4f5ff;
+  padding: 0.5rem 1.75rem;
+}
+
+.home__btn_mymusic {
+  all: unset;
+  background-color: #242527;
+  opacity: 0.9;
+  border-radius: 6px;
+  color: #e4f5ff;
+  padding: 0.5rem 1.75rem;
+}
+
+.home__btn_mymusic:hover {
+  opacity: 1;
+  box-shadow: 0 5px 15px #63809c4f;
+  cursor: pointer;
 }
 
 .heading__button:hover {
-    opacity: 1;
-    box-shadow: 0 5px 15px #46b6fb5f;
-    cursor: pointer;
+  opacity: 1;
+  box-shadow: 0 5px 15px #46b6fb5f;
+  cursor: pointer;
 }
 
 .options__section {
-    color: #e4f5ff;
-    margin: 0 auto;
-    width: 70%;
-    padding-bottom: 3%;
+  color: #e4f5ff;
+  margin: 0 auto;
+  width: 70%;
+  padding-bottom: 3%;
 }
 
 .options__p {
-    font-weight: 600;
-    margin-bottom: 1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
 }
 
 .options__div {
-    display: grid;
-    grid-template-columns: repeat(3, 32%);
-    margin: auto;
-    gap: 2%;
+  display: grid;
+  grid-template-columns: repeat(3, 32%);
+  margin: auto;
+  gap: 2%;
 }
 
 .heading__music_word {
-    color: #2ab3f8;
-    text-shadow: 1px 1px 20px #5bc6fb42;
+  color: #2ab3f8;
+  text-shadow: 1px 1px 20px #5bc6fb42;
 }
 
-@media screen and (max-width:660px) {
-    .heading__h1 {
-        width: 95%;
-        font-size: 2.5rem;
-    }
-    
-    .heading__p {
-        color: #e4f5ff;
-        width: 80%;
-    }
+@media screen and (max-width: 660px) {
+  .heading__h1 {
+    width: 95%;
+    font-size: 2.5rem;
+  }
 
-    .options__section{
-        width: 95%;
-        padding-bottom: 10%;
-    }
+  .heading__p {
+    color: #e4f5ff;
+    width: 80%;
+  }
 
-    .options__div {
-        display: grid;
-        grid-template-columns: repeat(2, 49%);
-        gap: 2%;
-    }
+  .options__section {
+    width: 95%;
+    padding-bottom: 10%;
+  }
+
+  .options__div {
+    display: grid;
+    grid-template-columns: repeat(2, 49%);
+    gap: 2%;
+  }
 }

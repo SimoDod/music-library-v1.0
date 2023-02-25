@@ -24,7 +24,6 @@ const Register = () => {
   const [userList, setUserList] = useState([]);
   const dbUsersRef = collection(firestore, "users");
   const host = "http://192.168.1.5:3000/";
-  
 
   /* it updates the list of users in case if you try to register with the same email twice */
   const [isUpdated, setIsUpdated] = useState(true);
@@ -34,7 +33,7 @@ const Register = () => {
       const data = await getDocs(dbUsersRef);
       setUserList(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
-
+ 
     getUsers();
   }, [isUpdated]);
 
@@ -74,40 +73,43 @@ const Register = () => {
       }
     }
 
+    if (!email || !password || !rePassword || !name) {
+      modalHandler("Ooops!", "Looks like you may have missed a field.");
+      return;
+    }
+
+    if (password !== rePassword) {
+      modalHandler("Ooops!", "Passwords doesn't match.");
+      return;
+    }
+
+    if (password.length < 6) {
+      modalHandler("Ooops!", "Password must be atleast 6 characters long.");
+      return;
+    }
+
+    if (email.length < 6) {
+      modalHandler("Ooops!", "Email must be atleast 6 characters long.");
+      return;
+    }
+
+    if (name.length < 3) {
+      modalHandler("Ooops!", "Name must be atleast 3 characters long.");
+      return;
+    }
+
+    const idGenerator = Math.random().toString(36).substring(2);
     try {
-      if (!email || !password || !rePassword || !name) {
-        modalHandler("Ooops!", "Looks like you may have missed a field.");
-        return;
-      }
+      const dataToUpload = { name, email, password, ownerId: idGenerator };
 
-      if (password !== rePassword) {
-        modalHandler("Ooops!", "Passwords doesn't match.");
-        return;
-      }
-
-      if (password.length < 6) {
-        modalHandler("Ooops!", "Password must be atleast 6 characters long.");
-        return;
-      }
-
-      if (email.length < 6) {
-        modalHandler("Ooops!", "Email must be atleast 6 characters long.");
-        return;
-      }
-
-      if (name.length < 3) {
-        modalHandler("Ooops!", "Name must be atleast 3 characters long.");
-        return;
-      }
-
-      handleSubmit("users", { name, email, password });
-      setIsUpdated(prev => !prev)
+      handleSubmit("users", dataToUpload);
+      setIsUpdated((prev) => !prev);
       e.target.reset();
       setPassword("");
       setRePassword("");
       buttonStateHandler();
+      localStorage.setItem("userData", JSON.stringify(dataToUpload));
       modalHandler("Done!", "You have registered successfully.");
-      localStorage.setItem("userData", JSON.stringify({ name, email, password }));
     } catch (error) {
       modalHandler(
         "Error",
@@ -119,10 +121,11 @@ const Register = () => {
 
   const closeErrorModal = () => {
     setshowModal(false);
-    if(localStorage.getItem("userData")) {
-        window.location.replace(host);
+    const userCheck = localStorage.getItem("userData");
+    if (userCheck) {
+      window.location.replace(host);
     }
-};
+  };
   const modalHandler = (title, message) => {
     setModalMessage(message);
     setModalTitle(title);

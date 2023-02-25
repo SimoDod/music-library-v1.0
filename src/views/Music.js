@@ -6,15 +6,15 @@ import MusicCard from "../components/UI/MusicCard";
 
 const Music = () => {
   const [musicList, setMusicList] = useState([]);
-  const dbAlbumsRef = collection(firestore, 'albums');
+  const dbSongsRef = collection(firestore, 'songs');
   
   useEffect(() => {
-    const getAlbums = async () => {
-      const data = await getDocs(dbAlbumsRef);
+    const getSongs = async () => {
+      const data = await getDocs(dbSongsRef);
       setMusicList(data.docs.map((doc) => ({...doc.data(), id:doc.id})))
     };
 
-    getAlbums()
+    getSongs()
   }, []);
 
   return (
@@ -28,8 +28,9 @@ const Music = () => {
               genre={current.genre}
               imgUrl={current.imgUrl}
               name={current.name}
-              price={current.price}
+              createdBy={current.ownerName}
               releaseDate={current.releaseDate}
+              isMyMusicPage={false}
             />
           </li>
         );

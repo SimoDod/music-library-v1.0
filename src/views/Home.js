@@ -11,6 +11,8 @@ import classes from "./Home.module.css";
 import { Link } from "react-router-dom";
 
 const Home = () => {
+  const userData = JSON.parse(localStorage.getItem("userData"));
+
   return (
     <main className={classes.container}>
       <section className={classes.heading__section}>
@@ -22,12 +24,22 @@ const Home = () => {
         <p className={classes.heading__p}>
           Musicboard is a social platform that allows you to keep track of all
           the music you listen to and grow your passion for music with friends.
-          Write reviews, rate albums, and compile lists in music's fastest
-          growing community.
+          Compile lists in music's fastest growing community.
         </p>
-        <Link to="/register">
-          <button className={classes.heading__button}>Create Account</button>
-        </Link>
+        {userData ? (
+          <Link to="/my-music">
+            <button
+              style={{ backgroundColor: "black" }}
+              className={classes.home__btn_mymusic}
+            >
+              My Music
+            </button>
+          </Link>
+        ) : (
+          <Link to="/register">
+            <button className={classes.heading__button}>Create Account</button>
+          </Link>
+        )}
       </section>
       <section className={classes.options__section}>
         <p className={classes.options__p}>Music Library Let's You...</p>
@@ -42,15 +54,15 @@ const Home = () => {
           />
           <HeadingCard
             icon={faCircleCheck}
-            text="Collect music into lists and show off your favorite albums, rank an artist's discography, and more"
+            text="Collect music into lists and show off your favorite songs, rank an artist's discography, and more"
           />
           <HeadingCard
             icon={faClockFour}
-            text="Save music you haven't listened to yet and stay up to date as new albums are being released"
+            text="Save music you haven't listened to yet and stay up to date as new songs are being released"
           />
           <HeadingCard
             icon={faStar}
-            text="Browse out Most Popular Albums to discover great music and new artists"
+            text="Browse out Most Popular Songs to discover great music and new artists"
           />
           <HeadingCard
             icon={faInfoCircle}

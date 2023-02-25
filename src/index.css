@@ -5,6 +5,8 @@ body {
     rgb(18, 26, 33) 12.6%,
     rgb(33, 50, 64) 82.8%
   );
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   /* background: rgb(0, 0, 10);
   background: linear-gradient(
     144deg,

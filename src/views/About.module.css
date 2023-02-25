@@ -27,6 +27,10 @@
   max-width: 600px;
 }
 
+.container .special {
+   color: #2ab3f8;
+}
+
 @media (max-width: 768px) {
   .container {
     padding: 20px;

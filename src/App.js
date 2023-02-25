@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import classes from './App.module.css';
 import NavBar from './components/navbar/NavBar';
 import About from "./views/About";
-import CreateAlbum from "./views/CreateAlbum";
+import CreateSong from "./views/CreateSong";
 import Home from './views/Home';
 import Login from "./views/Login";
 import Music from "./views/Music";
@@ -15,7 +15,7 @@ function App() {
   const [enteredSearch, setEnteredSearch] = useState('')
 
   const searchHandler = (searchValue) => {
-    setEnteredSearch(searchValue)
+    setEnteredSearch(searchValue);
   }
 
   return (
@@ -26,7 +26,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="/music" element={<Music />} />
           <Route path="/my-music" element={<MyMusic />} />
-          <Route path="/create-album" element={<CreateAlbum />} />
+          <Route path="/create-song" element={<CreateSong />} />
           <Route path="/about" element={<About />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
