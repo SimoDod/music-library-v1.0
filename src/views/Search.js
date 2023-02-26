@@ -18,7 +18,7 @@ const Search = (props) => {
         id: doc.id,
       }));
       const filteredData = sortedData.filter((album) =>
-        album.name.toLowerCase().includes(props.enteredSearch)
+        album.artist.toLowerCase().includes(props.enteredSearch)
       );
       setSearchList(filteredData);
       
