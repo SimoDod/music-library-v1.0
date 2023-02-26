@@ -26,7 +26,7 @@ const SearchTool = (props) => {
         </Link>
         <input
           className={classes.searchTool__input}
-          placeholder="Search by song name"
+          placeholder="Search by artist name"
           onChange={onChangeHandler}
         ></input>
       </div>

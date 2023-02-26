@@ -20,9 +20,16 @@ function About() {
         so stay tuned for more exciting updates!
       </p>
       <p className={classes.special}>
-        How does our search work? When you are logged in, you can only search
+        To create new songs you need to be logged in.
+      </p>
+      <p className={classes.special}>
+        How does our search work? When you are logged in, you can only search in
         your list of songs. Conversely, when you are not logged in, you can
         search through all the songs from all users.
+      </p>
+      <p className={classes.special}>
+        To delete or update your songs, you must be logged in. You can do so
+        only from the "My Songs" page by clicking on the "Details" button.
       </p>
     </div>
   );

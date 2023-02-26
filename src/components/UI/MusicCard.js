@@ -3,17 +3,8 @@ import React, { useState } from "react";
 
 const MusicCard = (props) => {
   const [isDetails, setIsDetails] = useState(false);
- 
 
   const detailsHandler = () => setIsDetails((prev) => !prev);
-
-  const deleteButtonHandler = () => {
-    console.log("delete");
-  };
-
-  const updateButtonHandler = () => {
-    console.log("update");
-  };
 
   return (
     <div className={classes.card}>
@@ -54,7 +45,7 @@ const MusicCard = (props) => {
         <div>
           {isDetails && props.isMyMusicPage ? (
             <button
-              onClick={(e) => deleteButtonHandler(e)}
+              onClick={(e) => props.deleteButtonHandler(e)}
               className={classes.delete__btn}
             >
               Delete
@@ -62,7 +53,7 @@ const MusicCard = (props) => {
           ) : null}
           {isDetails && props.isMyMusicPage ? (
             <button
-              onClick={(e) => updateButtonHandler(e)}
+              onClick={(e) => props.updateButtonHandler(e)}
               className={classes.update__btn}
             >
               Update

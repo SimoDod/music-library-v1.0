@@ -27,8 +27,6 @@
   animation-fill-mode: forwards;
 }
 
-
-
 .card__p_type_span {
   color: #0293eb;
 }
@@ -66,32 +64,53 @@
   justify-content: space-between;
   align-items: center;
   width: 50%;
-  
 }
 
 .delete__btn,
 .update__btn {
-  border-radius: 6px;
-  border: none;
-  color: #e4f5ff;
-  cursor: pointer;
+  background: linear-gradient(to bottom right, #ef4765, #ff9a5a);
+  border: 0;
+  border-radius: 12px;
   opacity: 0.9;
+  color: #ffffff;
+  cursor: pointer;
+  outline: transparent;
+  transition: box-shadow 0.2s ease-in-out;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
   animation: fadeInAnimation ease 3s;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
 }
 
-.delete__btn {
-  background-color: rgb(70, 0, 0);
-}
-
-.delete__btn:hover {
-  opacity: 1;
-  background-color: rgb(80, 0, 0);
-}
-
 .update__btn {
-  background-color: rgb(110, 81, 8);
+  background: linear-gradient(to bottom right, #d3ef47, #ffe65a);
+  color: black;
+}
+
+.delete__btn:not([disabled]):focus {
+  box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.5),
+    -0.125rem -0.125rem 1rem rgba(239, 71, 101, 0.5),
+    0.125rem 0.125rem 1rem rgba(255, 154, 90, 0.5);
+}
+
+.delete__btn:not([disabled]):hover {
+  box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.5),
+    -0.125rem -0.125rem 1rem rgba(239, 71, 101, 0.5),
+    0.125rem 0.125rem 1rem rgba(255, 154, 90, 0.5);
+}
+
+.update__btn:not([disabled]):focus {
+  box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.5),
+    -0.125rem -0.125rem 1rem rgba(71, 220, 115, 0.5),
+    0.125rem 0.125rem 1rem rgba(144, 240, 110, 0.5);
+}
+
+.update__btn:not([disabled]):hover {
+  box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.5),
+    -0.125rem -0.125rem 1rem rgba(71, 220, 115, 0.5),
+    0.125rem 0.125rem 1rem rgba(144, 240, 110, 0.5);
 }
 
 .update__btn:hover {

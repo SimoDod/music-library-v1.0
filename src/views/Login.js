@@ -14,7 +14,6 @@ const Login = () => {
   const [modalTitle, setModalTitle] = useState("");
 
   const dbUsersRef = collection(firestore, "users");
-  const host = "http://192.168.1.5:3000/";
 
   useEffect(() => {
     const getUsers = async () => {
@@ -39,7 +38,7 @@ const Login = () => {
     for (const user of userList) {
       if (user.email === email && user.password === password) {
         localStorage.setItem("userData", JSON.stringify(user));
-        window.location.replace(host);
+        window.location.replace("/");
         return;
       }
     }

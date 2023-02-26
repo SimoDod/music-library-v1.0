@@ -1,35 +1,26 @@
+import ErrorModal from "./ErrorModal";
+import classes from "./UpdateCard.module.css";
 import React, { useState } from "react";
-import classes from "./CreateSong.module.css";
-import handleSubmit from "../api/handles/handleSubmit";
-import ErrorModal from "../components/UI/ErrorModal";
+import handleUpdate from "../../api/handles/handleUpdate";
 
-const CreateSong = () => {
+const UpdateCard = ({
+  nameOld,
+  artistOld,
+  genreOld,
+  releaseDateOld,
+  descriptionOld,
+  imgUrlOld,
+  cardId,
+  ownerId,
+  ownerName,
+}) => {
   const [showModal, setshowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [modalTitle, setModalTitle] = useState("");
 
-  /* handles the state of the button */
-  const [isDisabled, setIsDisabled] = useState(false);
-  const [buttonColor, setButtonColor] = useState({
-    backgroundColor: "#007bff",
-  });
-
-  const buttonStateHandler = () => {
-    setIsDisabled(true);
-    setButtonColor({ backgroundColor: "darkgray" });
-
-    setTimeout(() => {
-      setIsDisabled(false);
-      setButtonColor({ backgroundColor: "#007bff" });
-    }, 6000);
-  };
-  /*  */
-
-  /*  handles the logic of the errors of the form, modal and sends request to the firebase */
-  const handleSongSubmit = (e) => {
+  const handleSongUpdate = (e) => {
     e.preventDefault();
-    
-    const userData = JSON.parse(localStorage.getItem("userData"));
+
     const data = Object.fromEntries(new FormData(e.target));
     try {
       const { artist, description, genre, imgUrl, name, releaseDate } = data;
@@ -46,32 +37,32 @@ const CreateSong = () => {
         return;
       }
 
-      handleSubmit("songs", {
-        ...data,
-        ownerId: userData.ownerId,
-        ownerName: userData.name,
-      });
+      handleUpdate(
+        "songs",
+        { ...data, ownerId: ownerId, ownerName: ownerName },
+        cardId
+      );
       e.target.reset();
-      buttonStateHandler();
-      modalHandler("Done!", "Your Song is created.");
+      modalHandler("Done!", "Your Song is updated.");
     } catch (error) {
       modalHandler(
         "Error",
-        "There was an error when creating the Song! Please try again."
+        "There was an error when updating the Song! Please try again."
       );
       console.log(error);
     }
   };
 
-  const closeErrorModal = () => setshowModal(false);
+  const closeErrorModal = () => {
+    window.location.replace("/my-music");
+    setshowModal(false);
+  };
 
   const modalHandler = (title, message) => {
     setModalMessage(message);
     setModalTitle(title);
     setshowModal(true);
   };
-  /*  */
-
   return (
     <>
       {showModal && (
@@ -81,38 +72,36 @@ const CreateSong = () => {
           clickHandler={closeErrorModal}
         />
       )}
-      <h2 className={classes.header}>Create Song</h2>
-      <form onSubmit={handleSongSubmit} className={classes.form}>
+      <h2 className={classes.header}>Update Song</h2>
+      <form onSubmit={handleSongUpdate} className={classes.form}>
         <div className={classes["form-group"]}>
           <label htmlFor="name">Song Name</label>
-          <input type="text" name="name" />
+          <input type="text" name="name" defaultValue={nameOld} />
         </div>
         <div className={classes["form-group"]}>
           <label htmlFor="artist">Artist</label>
-          <input type="text" name="artist" />
+          <input type="text" name="artist" defaultValue={artistOld} />
         </div>
         <div className={classes["form-group"]}>
           <label htmlFor="genre">Genre</label>
-          <input type="text" name="genre" />
+          <input type="text" name="genre" defaultValue={genreOld} />
         </div>
         <div className={classes["form-group"]}>
           <label htmlFor="releaseDate">Release Date</label>
-          <input type="date" name="releaseDate" />
+          <input type="date" name="releaseDate" defaultValue={releaseDateOld} />
         </div>
         <div className={classes["form-group"]}>
           <label htmlFor="description">Description</label>
-          <textarea name="description" />
+          <textarea name="description" defaultValue={descriptionOld} />
         </div>
         <div className={classes["form-group"]}>
           <label htmlFor="imgUrl">Image Url</label>
-          <input type="text" name="imgUrl" />
+          <input type="text" name="imgUrl" defaultValue={imgUrlOld} />
         </div>
-        <button style={buttonColor} disabled={isDisabled} type="submit">
-          {isDisabled ? "Button coming soon" : "Add Song"}
-        </button>
+        <button type="submit">Update Song</button>
       </form>
     </>
   );
 };
 
-export default CreateSong;
+export default UpdateCard;

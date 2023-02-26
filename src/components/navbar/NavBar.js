@@ -13,7 +13,6 @@ const NavBar = (props) => {
   const [modalTitle, setModalTitle] = useState("");
 
   const userData = JSON.parse(localStorage.getItem("userData"));
-  const host = "http://192.168.1.5:3000/";
 
   /* handles the  resize of the screen dinamically. Removes and adds different type of the home buttons */
   const handleResize = () => {
@@ -51,7 +50,7 @@ const NavBar = (props) => {
 
   const logoutHandler = () => {
     localStorage.clear();
-    window.location.replace(host);
+    window.location.replace("/");
   };
 
   return (
@@ -107,7 +106,7 @@ const NavBar = (props) => {
           ) : (
             <>
               <Link to="/my-music">
-                <button style={{backgroundColor: "black"}} className={classes.navbar__buttons_signup}>
+                <button onClick={() => props.musicFixHandler()} style={{backgroundColor: "black"}} className={classes.navbar__buttons_signup}>
                   My Music
                 </button>
               </Link>

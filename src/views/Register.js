@@ -23,7 +23,6 @@ const Register = () => {
 
   const [userList, setUserList] = useState([]);
   const dbUsersRef = collection(firestore, "users");
-  const host = "http://192.168.1.5:3000/";
 
   /* it updates the list of users in case if you try to register with the same email twice */
   const [isUpdated, setIsUpdated] = useState(true);
@@ -123,7 +122,7 @@ const Register = () => {
     setshowModal(false);
     const userCheck = localStorage.getItem("userData");
     if (userCheck) {
-      window.location.replace(host);
+      window.location.replace("/");
     }
   };
   const modalHandler = (title, message) => {

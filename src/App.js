@@ -12,20 +12,25 @@ import Search from "./views/Search";
 import MyMusic from "./views/MyMusic";
 
 function App() {
-  const [enteredSearch, setEnteredSearch] = useState('')
+  const [enteredSearch, setEnteredSearch] = useState('');
+  const [isUpdating, setIsUpdating] = useState(false);
 
   const searchHandler = (searchValue) => {
     setEnteredSearch(searchValue);
+  }
+
+  const musicFixHandler = ()=> {
+    setIsUpdating(false)
   }
 
   return (
     <div className={classes.app}>
       <BrowserRouter>
       <Routes>
-        <Route path="/" element={<NavBar searchHandler={searchHandler} />}>
+        <Route path="/" element={<NavBar musicFixHandler={musicFixHandler} searchHandler={searchHandler} />}>
           <Route index element={<Home />} />
           <Route path="/music" element={<Music />} />
-          <Route path="/my-music" element={<MyMusic />} />
+          <Route path="/my-music" element={<MyMusic isUpdating={isUpdating} setIsUpdating={setIsUpdating} />} />
           <Route path="/create-song" element={<CreateSong />} />
           <Route path="/about" element={<About />} />
           <Route path="/register" element={<Register />} />
