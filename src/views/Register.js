@@ -8,6 +8,9 @@ import { firestore } from "../api/firebase_setup/firebase";
 const Register = () => {
   const [password, setPassword] = useState("");
   const [rePassword, setRePassword] = useState("");
+  const [isPassMatch, setIsPassMatch] = useState(false);
+  const [isPassSixSymbol, setIsPassSixSymbol] = useState(false);
+  const [isRePassSixSymbol, setIsRePassSixSymbol] = useState(false);
 
   const [passStyle, setPassStyle] = useState({});
   const [rePassStyle, setRePassStyle] = useState({});
@@ -32,7 +35,7 @@ const Register = () => {
       const data = await getDocs(dbUsersRef);
       setUserList(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
- 
+
     getUsers();
   }, [isUpdated]);
 
@@ -47,15 +50,35 @@ const Register = () => {
   };
   /*  */
 
+  /* shows red border if passwords doesn't match */
+
   useEffect(() => {
+    password.length < 6 ? setIsPassSixSymbol(true) : setIsPassSixSymbol(false);
+    rePassword.length < 6
+      ? setIsRePassSixSymbol(true)
+      : setIsRePassSixSymbol(false);
+
     if (password !== rePassword) {
+      setIsPassMatch(true);
       setPassStyle({ border: "solid 2px red" });
       setRePassStyle({ border: "solid 2px red" });
     } else {
+      if (!(password.length < 6) && !(rePassword.length < 6)) {
+        setPassStyle({ border: "solid 2px green" });
+        setRePassStyle({ border: "solid 2px green" });
+      }
+      setIsPassMatch(false);
+    }
+
+    if (!password || !rePassword) {
       setPassStyle({});
       setRePassStyle({});
+      setIsPassMatch(false);
+      setIsPassSixSymbol(false);
+      setIsRePassSixSymbol(false);
     }
   }, [password, rePassword]);
+  /*  */
 
   const handleRegisterSubmit = (e) => {
     e.preventDefault();
@@ -159,6 +182,11 @@ const Register = () => {
             onChange={(e) => setPassword(e.target.value)}
             type="password"
           />
+          {isPassSixSymbol && (
+            <p className={classes.passwordmatch_p}>
+              Password must be atleast 6 symbols.
+            </p>
+          )}
         </div>
         <div className={classes["form-group"]}>
           <label htmlFor="rePassword">Repeat Password</label>
@@ -169,6 +197,14 @@ const Register = () => {
             onChange={(e) => setRePassword(e.target.value)}
             type="password"
           />
+          {isRePassSixSymbol && (
+            <p className={classes.passwordmatch_p}>
+              Password must be atleast 6 symbols.
+            </p>
+          )}
+          {isPassMatch && (
+            <p className={classes.passwordmatch_p}>Passwords doesn't match.</p>
+          )}
         </div>
         <button style={buttonColor} disabled={isDisabled} type="submit">
           Create Account

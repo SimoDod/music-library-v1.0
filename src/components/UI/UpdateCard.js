@@ -17,6 +17,7 @@ const UpdateCard = ({
   const [showModal, setshowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [modalTitle, setModalTitle] = useState("");
+  const [isUpdated, setIsUpdated] = useState(false);
 
   const handleSongUpdate = (e) => {
     e.preventDefault();
@@ -25,14 +26,7 @@ const UpdateCard = ({
     try {
       const { artist, description, genre, imgUrl, name, releaseDate } = data;
 
-      if (
-        !artist ||
-        !description ||
-        !genre ||
-        !imgUrl ||
-        !name ||
-        !releaseDate
-      ) {
+      if (!artist || !genre || !imgUrl || !name) {
         modalHandler("Ooops!", "Looks like you may have missed a field.");
         return;
       }
@@ -43,6 +37,7 @@ const UpdateCard = ({
         cardId
       );
       e.target.reset();
+      setIsUpdated(true);
       modalHandler("Done!", "Your Song is updated.");
     } catch (error) {
       modalHandler(
@@ -54,7 +49,9 @@ const UpdateCard = ({
   };
 
   const closeErrorModal = () => {
-    window.location.replace("/my-music");
+    if (isUpdated) {
+      window.location.replace("/");
+    }
     setshowModal(false);
   };
 
@@ -75,28 +72,37 @@ const UpdateCard = ({
       <h2 className={classes.header}>Update Song</h2>
       <form onSubmit={handleSongUpdate} className={classes.form}>
         <div className={classes["form-group"]}>
-          <label htmlFor="name">Song Name</label>
+          <label htmlFor="name">
+            Song Name <span className={classes.required_span}>(required)</span>
+          </label>
           <input type="text" name="name" defaultValue={nameOld} />
         </div>
         <div className={classes["form-group"]}>
-          <label htmlFor="artist">Artist</label>
+          <label htmlFor="artist">
+            Artist <span className={classes.required_span}>(required)</span>
+          </label>
           <input type="text" name="artist" defaultValue={artistOld} />
         </div>
         <div className={classes["form-group"]}>
-          <label htmlFor="genre">Genre</label>
+          <label htmlFor="genre">
+            Genre <span className={classes.required_span}>(required)</span>
+          </label>
           <input type="text" name="genre" defaultValue={genreOld} />
         </div>
         <div className={classes["form-group"]}>
-          <label htmlFor="releaseDate">Release Date</label>
-          <input type="date" name="releaseDate" defaultValue={releaseDateOld} />
+          <label htmlFor="imgUrl">
+            Image Url <span className={classes.required_span}>(required)</span>
+          </label>
+          <input type="text" name="imgUrl" defaultValue={imgUrlOld} />
         </div>
+
         <div className={classes["form-group"]}>
           <label htmlFor="description">Description</label>
           <textarea name="description" defaultValue={descriptionOld} />
         </div>
         <div className={classes["form-group"]}>
-          <label htmlFor="imgUrl">Image Url</label>
-          <input type="text" name="imgUrl" defaultValue={imgUrlOld} />
+          <label htmlFor="releaseDate">Release Date</label>
+          <input type="date" name="releaseDate" defaultValue={releaseDateOld} />
         </div>
         <button type="submit">Update Song</button>
       </form>

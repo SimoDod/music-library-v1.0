@@ -22,7 +22,7 @@ const Home = () => {
           Friends.
         </h1>
         <p className={classes.heading__p}>
-          Musicboard is a social platform that allows you to keep track of all
+          Music Library is a social platform that allows you to keep track of all
           the music you listen to and grow your passion for music with friends.
           Compile lists in music's fastest growing community.
         </p>

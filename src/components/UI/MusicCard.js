@@ -1,59 +1,73 @@
 import classes from "./MusicCard.module.css";
 import React, { useState } from "react";
 
-const MusicCard = (props) => {
+const MusicCard = ({
+  name,
+  artist,
+  genre,
+  releaseDate,
+  imgUrl,
+  description,
+  createdBy,
+  deleteButtonHandler,
+  updateButtonHandler,
+  isMyMusicPage,
+}) => {
   const [isDetails, setIsDetails] = useState(false);
 
   const detailsHandler = () => setIsDetails((prev) => !prev);
 
   return (
     <div className={classes.card}>
-      <img src={props.imgUrl} alt="img"></img>
+      <img src={imgUrl} alt="img"></img>
       {!isDetails && (
         <>
           <p className={classes.card__p}>
-            <span className={classes.card__p_type_span}>Name:</span>{" "}
-            {props.name}
+            <span className={classes.card__p_type_span}>Name:</span> {name}
           </p>
           <p className={classes.card__p}>
-            <span className={classes.card__p_type_span}>Artist:</span>{" "}
-            {props.artist}
+            <span className={classes.card__p_type_span}>Artist:</span> {artist}
           </p>
           <p className={classes.card__p}>
-            <span className={classes.card__p_type_span}>Genre:</span>{" "}
-            {props.genre}
+            <span className={classes.card__p_type_span}>Genre:</span> {genre}
           </p>
-          <p className={classes.card__p}>
+          {releaseDate !== '' ? (<p className={classes.card__p}>
             <span className={classes.card__p_type_span}>Release Date:</span>{" "}
-            {props.releaseDate}
-          </p>
+            {releaseDate}
+          </p>) : (<p className={classes.card__p}>
+            <span className={classes.card__p_type_span}>Release Date:</span>{" "}
+            Not speicified
+          </p>)}
+          
         </>
       )}
       {isDetails && (
         <>
           <p className={classes.card__p}>
-            <span className={classes.card__p_type_span}>User:</span>{" "}
-            {props.createdBy}
+            <span className={classes.card__p_type_span}>User:</span> {createdBy}
           </p>
-          <p className={classes.card__p}>
+          {description !== '' ? (<p className={classes.card__p}>
             <span className={classes.card__p_type_span}>Description:</span>{" "}
-            {props.description}
-          </p>
+            {description}
+          </p>) : (<p className={classes.card__p}>
+            <span className={classes.card__p_type_span}>Description:</span>{" "}
+            None
+          </p>)}
         </>
       )}
       <div className={classes.details__buttons}>
         <div>
-          {isDetails && props.isMyMusicPage ? (
+          {isDetails && isMyMusicPage ? (
             <button
-              onClick={(e) => props.deleteButtonHandler(e)}
+              onClick={(e) => deleteButtonHandler(e)}
               className={classes.delete__btn}
             >
               Delete
             </button>
           ) : null}
-          {isDetails && props.isMyMusicPage ? (
+          {isDetails && isMyMusicPage ? (
             <button
-              onClick={(e) => props.updateButtonHandler(e)}
+              onClick={(e) => updateButtonHandler(e)}
               className={classes.update__btn}
             >
               Update

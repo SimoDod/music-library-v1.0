@@ -1,4 +1,4 @@
-import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { Routes, Route, HashRouter as BrowserRouter } from "react-router-dom";
 import React, { useState } from 'react';
 import classes from './App.module.css';
 import NavBar from './components/navbar/NavBar';
@@ -13,24 +13,19 @@ import MyMusic from "./views/MyMusic";
 
 function App() {
   const [enteredSearch, setEnteredSearch] = useState('');
-  const [isUpdating, setIsUpdating] = useState(false);
-
+  
   const searchHandler = (searchValue) => {
     setEnteredSearch(searchValue);
-  }
-
-  const musicFixHandler = ()=> {
-    setIsUpdating(false)
   }
 
   return (
     <div className={classes.app}>
       <BrowserRouter>
       <Routes>
-        <Route path="/" element={<NavBar musicFixHandler={musicFixHandler} searchHandler={searchHandler} />}>
+        <Route path="/" element={<NavBar searchHandler={searchHandler} />}>
           <Route index element={<Home />} />
           <Route path="/music" element={<Music />} />
-          <Route path="/my-music" element={<MyMusic isUpdating={isUpdating} setIsUpdating={setIsUpdating} />} />
+          <Route path="/my-music" element={<MyMusic />} />
           <Route path="/create-song" element={<CreateSong />} />
           <Route path="/about" element={<About />} />
           <Route path="/register" element={<Register />} />

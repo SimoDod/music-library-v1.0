@@ -5,22 +5,32 @@ import { firestore } from "../api/firebase_setup/firebase";
 import MusicCard from "../components/UI/MusicCard";
 import UpdateCard from "../components/UI/UpdateCard";
 
-const MyMusic = ({ isUpdating, setIsUpdating }) => {
+const MyMusic = () => {
   const [myMusicList, setMyMusicList] = useState([]);
   const [cardData, setCardData] = useState("");
+  const [isUpdating, setIsUpdating] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   const dbSongsRef = collection(firestore, "songs");
 
   useEffect(() => {
-    const getSongs = async () => {
-      const data = await getDocs(dbSongsRef);
-      const dataMap = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-      const userData = JSON.parse(localStorage.getItem("userData"));
+    setIsLoading(true);
 
-      setMyMusicList(
-        dataMap.filter((song) => song.ownerId === userData.ownerId)
-      );
-    };
-    getSongs();
+    /* added timeout to show the loading screen. it loads too fast to show it */
+    setTimeout(() => {
+      const getSongs = async () => {
+        const data = await getDocs(dbSongsRef);
+        const dataMap = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+        const userData = JSON.parse(localStorage.getItem("userData"));
+
+        setMyMusicList(
+          dataMap.filter((song) => song.ownerId === userData.ownerId)
+        );
+      };
+      getSongs();
+      setIsLoading(false);
+    }, 250);
+    /*  */
   }, []);
 
   const deleteButtonHandler = async (e) => {
@@ -54,47 +64,44 @@ const MyMusic = ({ isUpdating, setIsUpdating }) => {
 
   return (
     <>
-      {isUpdating ? (
-        <UpdateCard
-          nameOld={cardData.name}
-          artistOld={cardData.artist}
-          genreOld={cardData.genre}
-          releaseDateOld={cardData.releaseDate}
-          descriptionOld={cardData.description}
-          imgUrlOld={cardData.imgUrl}
-          cardId={cardData.id}
-          ownerId={cardData.ownerId}
-          ownerName={cardData.ownerName}
-        />
-      ) : (
-        <>
-          {myMusicList.length === 0 && (
-            <h2 className={classes.nosongs}>
-              Your list of songs is empty. Start by creating a song :)
-            </h2>
-          )}
-          <ul className={classes.music__ul}>
-            {myMusicList.map((current) => {
-              return (
-                <li id={current.id} key={current.id}>
-                  <MusicCard
-                    artist={current.artist}
-                    description={current.description}
-                    genre={current.genre}
-                    imgUrl={current.imgUrl}
-                    name={current.name}
-                    createdBy={current.ownerName}
-                    releaseDate={current.releaseDate}
-                    isMyMusicPage={true}
-                    deleteButtonHandler={deleteButtonHandler}
-                    updateButtonHandler={updateButtonHandler}
-                  />
-                </li>
-              );
-            })}
-          </ul>
-        </>
-      )}
+      {isLoading && <div className={classes.loading_screen_div}></div>}
+      {!isLoading &&
+        (isUpdating ? (
+          <UpdateCard
+            nameOld={cardData.name}
+            artistOld={cardData.artist}
+            genreOld={cardData.genre}
+            releaseDateOld={cardData.releaseDate}
+            descriptionOld={cardData.description}
+            imgUrlOld={cardData.imgUrl}
+            cardId={cardData.id}
+            ownerId={cardData.ownerId}
+            ownerName={cardData.ownerName}
+          />
+        ) : (
+          <>
+            <ul className={classes.music__ul}>
+              {myMusicList.map((current) => {
+                return (
+                  <li id={current.id} key={current.id}>
+                    <MusicCard
+                      artist={current.artist}
+                      description={current.description}
+                      genre={current.genre}
+                      imgUrl={current.imgUrl}
+                      name={current.name}
+                      createdBy={current.ownerName}
+                      releaseDate={current.releaseDate}
+                      isMyMusicPage={true}
+                      deleteButtonHandler={deleteButtonHandler}
+                      updateButtonHandler={updateButtonHandler}
+                    />
+                  </li>
+                );
+              })}
+            </ul>
+          </>
+        ))}
     </>
   );
 };

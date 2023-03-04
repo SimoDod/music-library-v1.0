@@ -28,21 +28,14 @@ const CreateSong = () => {
   /*  handles the logic of the errors of the form, modal and sends request to the firebase */
   const handleSongSubmit = (e) => {
     e.preventDefault();
-    
+
     const userData = JSON.parse(localStorage.getItem("userData"));
     const data = Object.fromEntries(new FormData(e.target));
     try {
       const { artist, description, genre, imgUrl, name, releaseDate } = data;
 
-      if (
-        !artist ||
-        !description ||
-        !genre ||
-        !imgUrl ||
-        !name ||
-        !releaseDate
-      ) {
-        modalHandler("Ooops!", "Looks like you may have missed a field.");
+      if (!artist || !genre || !imgUrl || !name) {
+        modalHandler("Ooops!", "Please complete all required fields.");
         return;
       }
 
@@ -84,28 +77,37 @@ const CreateSong = () => {
       <h2 className={classes.header}>Create Song</h2>
       <form onSubmit={handleSongSubmit} className={classes.form}>
         <div className={classes["form-group"]}>
-          <label htmlFor="name">Song Name</label>
+          <label htmlFor="name">
+            Song Name <span className={classes.required_span}>(required)</span>
+          </label>
           <input type="text" name="name" />
         </div>
         <div className={classes["form-group"]}>
-          <label htmlFor="artist">Artist</label>
+          <label htmlFor="artist">
+            Artist <span className={classes.required_span}>(required)</span>
+          </label>
           <input type="text" name="artist" />
         </div>
         <div className={classes["form-group"]}>
-          <label htmlFor="genre">Genre</label>
+          <label htmlFor="genre">
+            Genre <span className={classes.required_span}>(required)</span>
+          </label>
           <input type="text" name="genre" />
         </div>
         <div className={classes["form-group"]}>
-          <label htmlFor="releaseDate">Release Date</label>
-          <input type="date" name="releaseDate" />
+          <label htmlFor="imgUrl">
+            Image Url <span className={classes.required_span}>(required)</span>
+          </label>
+          <input type="text" name="imgUrl" />
         </div>
+
         <div className={classes["form-group"]}>
           <label htmlFor="description">Description</label>
           <textarea name="description" />
         </div>
         <div className={classes["form-group"]}>
-          <label htmlFor="imgUrl">Image Url</label>
-          <input type="text" name="imgUrl" />
+          <label htmlFor="releaseDate">Release Date</label>
+          <input type="date" name="releaseDate" />
         </div>
         <button style={buttonColor} disabled={isDisabled} type="submit">
           {isDisabled ? "Button coming soon" : "Add Song"}

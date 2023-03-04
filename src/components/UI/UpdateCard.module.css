@@ -58,6 +58,11 @@
   transition: all 0.2s ease-in-out;
 }
 
+.required_span {
+  font-size: 12px;
+  font-weight: 400;
+}
+
 .form button:not([disabled]):focus {
     box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.5),
     -0.125rem -0.125rem 1rem rgba(71, 220, 115, 0.5),

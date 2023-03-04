@@ -106,7 +106,7 @@ const NavBar = (props) => {
           ) : (
             <>
               <Link to="/my-music">
-                <button onClick={() => props.musicFixHandler()} style={{backgroundColor: "black"}} className={classes.navbar__buttons_signup}>
+                <button style={{backgroundColor: "black"}} className={classes.navbar__buttons_signup}>
                   My Music
                 </button>
               </Link>
